@@ -36,13 +36,13 @@ itemsRouter.get("/:id", async (req, res, next) => {
 })
 
 itemsRouter.post("/", auth, imagesUpload.single('image'), async (req, res, next) => {
-    const {title, description, price} = req.body;
     const token = req.get('Authorization');
 
     if (!token) {
         res.status(401).send({error: 'Токен отсутствует.'});
         return;
     }
+    console.log("Токен на сервере:", token);
 
     const user = await User.findOne({token});
 
@@ -55,15 +55,14 @@ itemsRouter.post("/", auth, imagesUpload.single('image'), async (req, res, next)
 
         const newItem = new Item({
             user: user._id,
-            title: title,
-            description: description,
-            price: price,
-            image: req.file ? 'images' + req.file.filename : null
+            title: req.body.title,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category,
+            image: req.file ? 'images' + req.file.filename :null
         });
 
-        await newItem.validate();
         await newItem.save();
-
         res.send(newItem);
 
     }catch (error) {

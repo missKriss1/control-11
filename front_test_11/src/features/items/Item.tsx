@@ -26,10 +26,10 @@ const Post: React.FC<Props> = ({ item }) => {
             src={item.image ? `${apiUrl}/${item.image}` : undefined}
             alt={item.title}
             className="w-100 h-auto mb-3 rounded col-6"
-            style={{ maxWidth: "300px" }} // Ограничение ширины картинки до 300px
+            style={{ maxWidth: "300px" }}
           />
         ) : (
-          <i className="bi bi-chat-left-text-fill fs-1 text-primary"></i> // Иконка Bootstrap
+          <i className="bi bi-chat-left-text-fill fs-1 text-primary"></i>
         )}
       </div>
       <div
@@ -39,14 +39,13 @@ const Post: React.FC<Props> = ({ item }) => {
           {item.title}
         </h5>
 
-        {/* Перемещаем цену сюда, перед кнопкой */}
         <span className={"mb-2 d-inline-block fs-4 fw-bold"}>
           {item.price}
         </span>
 
         <div className="mt-auto mb-3">
           <Link to={`/posts/${item._id}`} className="btn btn-primary">
-            <i className="bi bi-arrow-right-circle me-2"></i> Читать полностью
+            <i className="bi bi-arrow-right-circle me-2"></i> Просмотреть товар
           </Link>
         </div>
       </div>

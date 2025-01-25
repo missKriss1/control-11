@@ -14,19 +14,50 @@ const ItemSchema = new mongoose.Schema({
     },
     title:{
         type: String,
-        required: true,
+        validate: [
+            {
+                validator: async function (value: string): Promise<boolean> {
+                    return value === value.trim();
+                },
+                message: "Заголовок не должен содержать пробелов."
+            },
+            {
+                validator: async function (value: string): Promise<boolean> {
+                    return value.trim().length > 0;
+                },
+                message: "Заполните заголовок.",
+            },
+        ],
     },
     description:{
         type: String,
-        required: true,
+        validate: [
+            {
+                validator: async function (value: string): Promise<boolean> {
+                    return value === value.trim();
+                },
+                message: "Описание не должен содержать пробелов."
+            },
+            {
+                validator: async function (value: string): Promise<boolean> {
+                    return value.trim().length > 0;
+                },
+                message: "Заполните описание.",
+            },
+        ],
     },
-    image:{
+    image: {
         type: String,
         required: true,
     },
     price:{
         type: Number,
-        required: true,
+        validate: {
+            validator: function (value: number) {
+                return value > 0;
+            },
+            message: "Цена должна быть больше нуля."
+        }
     }
 })
 
