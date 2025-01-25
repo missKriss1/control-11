@@ -52,7 +52,7 @@ const run = async () => {
             category: category1._id,
             title: 'ASUS',
             description: "Топ комп",
-            image: 'asusuComp.jpg',
+            image: 'fixtures/asusuComp.jpg',
             price: 17000,
 
         },
@@ -61,7 +61,7 @@ const run = async () => {
             category: category1._id,
             title: 'MacBook',
             description: "Лучший",
-            image: 'macBook.jpg',
+            image: 'fixtures/macBook.jpg',
             price: 400000,
         },
         {
@@ -69,7 +69,7 @@ const run = async () => {
             category: category2._id,
             title: 'Iphone',
             description: "Топ компания",
-            image: 'catygory_1_user_1.jpg',
+            image: 'fixtures/catygory_1_user_1.jpg',
             price: 80000,
         },
         {
@@ -77,7 +77,7 @@ const run = async () => {
             category: category2._id,
             title: 'Samsung',
             description: "Клаасный телик",
-            image: 'samsungTelevisions.jpg',
+            image: 'fixtures/samsungTelevisions.jpg',
             price: 55500,
         },
         {
@@ -85,14 +85,14 @@ const run = async () => {
             category: category1._id,
             title: 'Samsung',
             description: "Телефон тож ниче",
-            image: 'samsungPhone.jpg',
+            image: 'fixtures/samsungPhone.jpg',
             price: 35000,
         },{
             user: user2._id,
             category: category2._id,
             title: 'Redmi',
             description: "Ваще не знаю",
-            image: 'RedmiPhone.jpg',
+            image: 'fixtures/RedmiPhone.jpg',
             price: 12000,
         }
         ,{
@@ -100,7 +100,7 @@ const run = async () => {
             category: category3._id,
             title: 'LG',
             description: "Топчик",
-            image: 'LGTelevisions.jpg',
+            image: 'fixtures/LGTelevisions.jpg',
             price: 120000,
         }
     )

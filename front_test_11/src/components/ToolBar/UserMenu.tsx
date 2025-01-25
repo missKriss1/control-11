@@ -2,12 +2,13 @@ import { NavLink } from "react-router-dom";
 import { useAppDispatch } from '../../app/hooks.ts';
 import { logout } from '../../features/users/userThunk.ts';
 import { unsetUser } from '../../features/users/userSlice.ts';
+import React from 'react';
 
-export interface UserMenuProps {
-  username: string;
+interface Props {
+  displayName :string
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
+const UserMenu: React.FC<Props> = ({displayName}) => {
   const dispatch = useAppDispatch();
   const HandleLogout = () => {
     dispatch(logout());
@@ -17,7 +18,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
     <div>
       <li className="nav-item fs-5">
         <p className={"d-block text-white ms-2 mt-3 mb-0"}>
-          Привет, <strong>{username}! </strong>
+          Привет, <strong>{displayName}! </strong>
         </p>
         <NavLink
           className={`mb-2 mt-1 d-inline-block nav-link btn button-add text-primary bg-white p-2`}

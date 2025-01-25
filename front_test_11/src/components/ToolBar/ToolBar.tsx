@@ -18,7 +18,7 @@ const ToolBar = () => {
           </NavLink>
           <div className="ms-auto">
             <ul className="navbar-nav">
-              {user ? <UserMenu username={user.username} /> : <AnonymousMenu />}
+              {user ? <UserMenu displayName={user.displayName} /> : <AnonymousMenu />}
             </ul>
           </div>
         </div>
