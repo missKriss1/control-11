@@ -22,7 +22,7 @@ const UserMenu: React.FC<Props> = ({displayName}) => {
         </p>
         <NavLink
           className={`mb-2 mt-1 d-inline-block nav-link btn button-add text-primary bg-white p-2`}
-          to={"/add-post"}
+          to={"/add_item"}
         >
           Добавить новый товар
         </NavLink>

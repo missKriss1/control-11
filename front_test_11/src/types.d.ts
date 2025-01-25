@@ -47,3 +47,16 @@ export interface IItem {
   image: File | null,
   price: number;
 }
+
+export interface IItemMutation{
+    category: string,
+    title: string,
+    description: string,
+    image: File | null,
+    price: number;
+}
+
+export interface ICategory {
+  _id: string;
+  title: string;
+}
