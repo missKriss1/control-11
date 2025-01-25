@@ -5,7 +5,6 @@ import {randomUUID} from "node:crypto";
 
 interface UserMethods {
     checkPassword(password: string): Promise<boolean>;
-
     generateToken(): void;
 }
 
@@ -56,6 +55,15 @@ const UserSchema = new Schema<
                 message: "Заполните пароль.",
             },
         ],
+    },
+    displayName:{
+        type: String,
+        required: true,
+    },
+    phone:{
+        type: String,
+        required: true,
+        unique: true,
     },
     token: {
         type: String,
