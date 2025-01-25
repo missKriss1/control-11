@@ -1,10 +1,11 @@
-import { IItem, ValidationError } from '../../types';
+import { IDetailedItem, IItem, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { addNewItem, fetchItemByCategory, fetchItems } from './ItemThunk.ts';
+import { addNewItem, fetchItemByCategory, fetchItemById, fetchItems } from './ItemThunk.ts';
 import { RootState } from '../../app/store.ts';
 
 interface ItemState {
   item: IItem[];
+  items: IDetailedItem | null;
   loading: boolean;
   addLoading: boolean;
   error: boolean;
@@ -13,6 +14,7 @@ interface ItemState {
 
 const initialState: ItemState = {
   item: [],
+  items: null,
   loading: false,
   addLoading: false,
   error: false,
@@ -20,6 +22,7 @@ const initialState: ItemState = {
 };
 
 export const selectItem = (state: RootState) => state.items.item;
+export const selectOneItem = (state: RootState) => state.items.items;
 export const addError = (state: RootState) => state.items.addError;
 export const addLoading = (state: RootState) => state.items.addLoading;
 
@@ -62,6 +65,17 @@ const itemSlice = createSlice({
       .addCase(fetchItemByCategory.rejected, (state) => {
         state.error = true;
       })
+      .addCase(fetchItemById.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(fetchItemById.fulfilled, (state, { payload: item }) => {
+        state.loading = false;
+        state.items = item ;
+      })
+      .addCase(fetchItemById.rejected, (state) => {
+        state.error = true;
+      });
   }
 })
 

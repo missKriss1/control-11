@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IItem, ValidationError } from '../../types';
+import { IDetailedItem, IItem, ValidationError } from '../../types';
 import axiosApi from '../../axiosApi.ts';
 import { RootState } from '../../app/store.ts';
 import { isAxiosError } from 'axios';
@@ -17,6 +17,14 @@ export const fetchItemByCategory = createAsyncThunk <IItem[], string>(
   async (categoryId : string) =>{
     const {data: categoryByItem} = await axiosApi(`/items?category=${categoryId}`)
     return categoryByItem || [];
+  }
+)
+
+export const fetchItemById = createAsyncThunk<IDetailedItem, string>(
+  'items/fetchPostById',
+  async (itemId) =>{
+    const response = await  axiosApi.get<IDetailedItem>(`/items/${itemId}`);
+    return response.data;
   }
 )
 

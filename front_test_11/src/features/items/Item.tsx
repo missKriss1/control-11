@@ -7,7 +7,7 @@ interface Props {
   item: IItem;
 }
 
-const Post: React.FC<Props> = ({ item }) => {
+const Item: React.FC<Props> = ({ item }) => {
   return (
     <div
       className="w-75 p-3 mb-4 row d-flex shadow rounded border-0"
@@ -44,7 +44,7 @@ const Post: React.FC<Props> = ({ item }) => {
         </span>
 
         <div className="mt-auto mb-3">
-          <Link to={`/posts/${item._id}`} className="btn btn-primary">
+          <Link to={`/items/${item._id}`} className="btn btn-primary">
             <i className="bi bi-arrow-right-circle me-2"></i> Просмотреть товар
           </Link>
         </div>
@@ -53,4 +53,4 @@ const Post: React.FC<Props> = ({ item }) => {
   );
 };
 
-export default Post;
+export default Item;

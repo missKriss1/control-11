@@ -48,6 +48,21 @@ export interface IItem {
   price: number;
 }
 
+export interface IDetailedItem {
+  _id: string;
+  user: {
+    displayName: string;
+    phone: string;
+  };
+  category:{
+    title: string
+  }
+  title: string;
+  description: string,
+  image: File | null;
+  price: number;
+}
+
 export interface IItemMutation{
     category: string,
     title: string,
