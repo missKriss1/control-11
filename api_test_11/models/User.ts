@@ -58,11 +58,41 @@ const UserSchema = new Schema<
     },
     displayName:{
         type: String,
-        required: true,
+        validate: [
+            {
+                validator: async function (this: HydratedDocument<UserFields>, value: string): Promise<boolean> {
+                    if (!this.isModified('displayName')) return true;
+                    const user: UserFields | null = await User.findOne({displayName: value});
+                    return !user;
+                },
+                message: "Данное имя уже существует.",
+            },
+            {
+                validator: function (value: string): boolean {
+                    return value.trim().length > 0;
+                },
+                message: "Заполните имя.",
+            },
+        ],
     },
     phone:{
         type: String,
-        required: true,
+        validate: [
+            {
+                validator: async function (this: HydratedDocument<UserFields>, value: string): Promise<boolean> {
+                    if (!this.isModified('phone')) return true;
+                    const user: UserFields | null = await User.findOne({phone: value});
+                    return !user;
+                },
+                message: "Данное номер уже существует.",
+            },
+            {
+                validator: function (value: string): boolean {
+                    return value.trim().length > 0;
+                },
+                message: "Заполните номер.",
+            },
+        ],
         unique: true,
     },
     token: {

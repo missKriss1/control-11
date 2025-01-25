@@ -15,6 +15,7 @@ const initialState: CategorySlice = {
 }
 
 export const selectCategory = (state: RootState) => state.categories.category;
+export const selectCategoryLoad = (state: RootState) => state.categories.loading;
 
 const  categorySlice = createSlice({
   name: 'categories',

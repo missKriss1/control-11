@@ -51,9 +51,7 @@ export interface IItem {
 export interface IDetailedItem {
   _id: string;
   user: User;
-  category:{
-    title: string
-  }
+  category: ICategory,
   title: string;
   description: string,
   image: File | null;

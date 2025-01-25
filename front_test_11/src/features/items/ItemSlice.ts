@@ -25,6 +25,7 @@ export const selectItem = (state: RootState) => state.items.item;
 export const selectOneItem = (state: RootState) => state.items.items;
 export const addError = (state: RootState) => state.items.addError;
 export const addLoading = (state: RootState) => state.items.addLoading;
+export const selectLoadItem = (state: RootState) => state.items.loading;
 
 const itemSlice = createSlice({
   name: "items",
