@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { RegisterMutation } from "../../types";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { login } from "./UserThunk.ts";
-import { selectLoginError, selectLoginLoading } from "./UserSlice.ts";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import ButtonLoading from "../../components/UI/ButtonLoading/ButtonLoading.tsx";
+import { selectLoginError, selectLoginLoading } from './userSlice.ts';
+import { login } from './userThunk.ts';
+import ButtonLoading from '../../components/ButtonLoading/ButtonLoading.tsx';
+
 
 const Register = () => {
   const [form, setForm] = useState<RegisterMutation>({

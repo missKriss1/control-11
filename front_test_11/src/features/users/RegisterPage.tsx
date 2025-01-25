@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterMutation } from "../../types";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { selectRegisterError, selectRegisterLoading } from "./UserSlice.ts";
-
 import { NavLink } from "react-router-dom";
-import { register } from "./UserThunk.ts";
-import ButtonLoading from "../../components/UI/ButtonLoading/ButtonLoading.tsx";
+import { selectRegisterError, selectRegisterLoading } from './userSlice.ts';
+import { register } from './userThunk.ts';
+import ButtonLoading from '../../components/ButtonLoading/ButtonLoading.tsx';
 
 const Register = () => {
   const [form, setForm] = useState<RegisterMutation>({
     username: "",
     password: "",
+    phone: '',
+    displayName:''
   });
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectRegisterError);
@@ -114,6 +115,66 @@ const Register = () => {
                             />
                             <label htmlFor={"password"} className="form-label">
                               Пароль
+                            </label>
+                          </div>
+                        </div>
+
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            {getFieldError("displayName") ? (
+                              <div
+                                className="alert alert-danger w-100 text-center p-1 mx-auto"
+                                role="alert"
+                              >
+                                {getFieldError("displayName")}
+                              </div>
+                            ) : null}
+                            <input
+                              type="text"
+                              id="displayName"
+                              className={
+                                getFieldError("displayName")
+                                  ? "form-control is-invalid"
+                                  : "form-control"
+                              }
+                              onChange={inputChangeHandler}
+                              value={form.displayName}
+                              name="displayName"
+                            />
+                            <label htmlFor={"displayName"} className="form-label">
+                              Нейминг
+                            </label>
+                          </div>
+                        </div>
+
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            {getFieldError("phone") ? (
+                              <div
+                                className="alert alert-danger w-100 text-center p-1 mx-auto"
+                                role="alert"
+                              >
+                                {getFieldError("phone")}
+                              </div>
+                            ) : null}
+                            <input
+                              type="text"
+                              id="phone"
+                              className={
+                                getFieldError("phone")
+                                  ? "form-control is-invalid"
+                                  : "form-control"
+                              }
+                              onChange={inputChangeHandler}
+                              value={form.phone}
+                              name="phone"
+                            />
+                            <label htmlFor={"phone"} className="form-label">
+                              Телефон
                             </label>
                           </div>
                         </div>
