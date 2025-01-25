@@ -1,6 +1,6 @@
 import {Router} from "express";
 import Item from "../models/Item";
-import auth from "../middleware/auth";
+import auth, {RequestWithUser} from "../middleware/auth";
 import {imagesUpload} from "../multer";
 import User from "../models/User";
 import {Error} from "mongoose";
@@ -42,7 +42,6 @@ itemsRouter.post("/", auth, imagesUpload.single('image'), async (req, res, next)
         res.status(401).send({error: 'Токен отсутствует.'});
         return;
     }
-    console.log("Токен на сервере:", token);
 
     const user = await User.findOne({token});
 
@@ -71,6 +70,30 @@ itemsRouter.post("/", auth, imagesUpload.single('image'), async (req, res, next)
             return;
         }
         next(error);
+    }
+})
+
+itemsRouter.delete("/:id", auth, async (req, res, next) => {
+    let reqWithAuth = req as RequestWithUser;
+    const user = reqWithAuth.user;
+
+    try{
+        const item = await  Item.findById(req.params.id)
+
+        if (user && item) {
+            if (String(item.user._id) === String(user._id)) {
+                await Item.findByIdAndDelete(req.params.id);
+                res.send('Товар удален');
+                return
+            } else {
+                res.status(403).send('Вы не автор данного товара');
+                return
+            }
+        }
+
+         res.send('IТовар удале');
+    }catch (e){
+        next(e);
     }
 })
 

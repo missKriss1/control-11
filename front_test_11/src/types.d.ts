@@ -50,10 +50,7 @@ export interface IItem {
 
 export interface IDetailedItem {
   _id: string;
-  user: {
-    displayName: string;
-    phone: string;
-  };
+  user: User;
   category:{
     title: string
   }

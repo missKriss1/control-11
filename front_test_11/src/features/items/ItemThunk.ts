@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IDetailedItem, IItem, ValidationError } from '../../types';
+import {  IDetailedItem, IItem, ValidationError } from '../../types';
 import axiosApi from '../../axiosApi.ts';
 import { RootState } from '../../app/store.ts';
 import { isAxiosError } from 'axios';
@@ -42,6 +42,27 @@ export const addNewItem = createAsyncThunk<IItem, FormData, {state: RootState, r
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
         return rejectWithValue(e.response.data as ValidationError );
+      }
+
+      throw e;
+    }
+  },
+);
+
+export const deleteItemById = createAsyncThunk<IItem, string, {state: RootState, rejectValue: ValidationError }>(
+  'items/delete-by-id',
+  async (item_id: string, { getState, rejectWithValue }) => {
+    const token = getState().users.user?.token;
+    try {
+      if (token) {
+        const response =await axiosApi.delete(`items/${item_id}`, {
+          headers: { Authorization: token },
+        });
+        return response.data;
+      }
+    } catch (e) {
+      if (isAxiosError(e) && e.response && e.response.status === 400) {
+        return rejectWithValue(e.response.data);
       }
 
       throw e;

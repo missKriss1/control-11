@@ -1,6 +1,6 @@
 import { IDetailedItem, IItem, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { addNewItem, fetchItemByCategory, fetchItemById, fetchItems } from './ItemThunk.ts';
+import { addNewItem, deleteItemById, fetchItemByCategory, fetchItemById, fetchItems } from './ItemThunk.ts';
 import { RootState } from '../../app/store.ts';
 
 interface ItemState {
@@ -74,6 +74,17 @@ const itemSlice = createSlice({
         state.items = item ;
       })
       .addCase(fetchItemById.rejected, (state) => {
+        state.error = true;
+      })
+      .addCase(deleteItemById.pending, (state) => {
+      state.loading = true;
+      state.error = false;
+      })
+      .addCase(deleteItemById.fulfilled, (state) => {
+
+        state.loading = false;
+      })
+      .addCase(deleteItemById.rejected, (state) => {
         state.error = true;
       });
   }

@@ -1,26 +1,38 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { selectUser } from '../users/userSlice.ts';
 import { selectOneItem } from './ItemSlice.ts';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { fetchItemById } from './ItemThunk.ts';
+import { useNavigate, useParams } from 'react-router-dom';
+import  { useEffect } from 'react';
+import { deleteItemById, fetchItemById, fetchItems } from './ItemThunk.ts';
+import DeletedBtn from '../../components/DeletedBtn/DeletedBtn.tsx';
 import { apiUrl } from '../../globalConstants.ts';
 
 const DetailedItem = () => {
   const user = useAppSelector(selectUser);
   const item = useAppSelector(selectOneItem);
-
+  const navigation = useNavigate();
   const dispatch = useAppDispatch();
-  const {itemId} = useParams();
+  const { itemId } = useParams();
 
   useEffect(() => {
-    if(itemId){
-      dispatch(fetchItemById(itemId))
-
+    if (itemId) {
+      dispatch(fetchItemById(itemId));
     }
   }, [dispatch, itemId]);
 
-  console.log(item)
+  const deleteItem = async (id: string) => {
+    try {
+      await dispatch(deleteItemById(id));
+      await dispatch(fetchItems());
+      navigation('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  if (!item) {
+    return <p>Товар не найден</p>;
+  }
 
   return (
     <div className="container mt-5">
@@ -57,7 +69,7 @@ const DetailedItem = () => {
                   <strong>Категория:</strong> {item?.category.title}
                 </p>
                 <div className="mt-auto text-end">
-                  <button className="btn btn-primary px-4 py-2">Купить</button>
+                  <DeletedBtn item={item} user={user?._id || null} deleteItem={deleteItem} />
                 </div>
               </div>
             </div>
@@ -66,7 +78,5 @@ const DetailedItem = () => {
       </div>
     </div>
   );
-
 };
-
 export default DetailedItem;

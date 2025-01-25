@@ -12,6 +12,8 @@ const Register = () => {
   const [form, setForm] = useState<RegisterMutation>({
     username: "",
     password: "",
+    phone: "",
+    displayName:''
   });
   const dispatch = useAppDispatch();
   const loginError = useAppSelector(selectLoginError);
